@@ -7,11 +7,10 @@ import android.os.Looper;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
+import static by.paranoidandroid.serviceexample.utils.Constants.*;
+
 public class HardJobIntentService extends IntentService {
-    private static final String UPDATE_PROGRESS_ACTION = "by.paranoidandroid.serviceexample.action.UPDATE_PROGRESS",
-            PROGRESS_KEY = "PROGRESS_KEY", SERVICE_KEY = "SERVICE_KEY", SERVICE_VALUE = "INTENT_SERVICE",
-            START_SERVICE_MSG = "Starting IntentService", FINISH_SERVICE_MSG = "Finishing IntentService";
-    private static final int MAX_VALUE = 100, SLEEP_TIME = 100;
     private boolean isDestroyed;
 
     public HardJobIntentService() {
@@ -21,7 +20,7 @@ public class HardJobIntentService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         isDestroyed = false;
-        showToast(START_SERVICE_MSG);
+        showToast(START_INTENT_SERVICE_MSG);
         try {
             for (int i = 0; i <= MAX_VALUE && !isDestroyed; i++) {
                 Thread.sleep(SLEEP_TIME);
@@ -30,7 +29,7 @@ public class HardJobIntentService extends IntentService {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        showToast(FINISH_SERVICE_MSG);
+        showToast(FINISH_INTENT_SERVICE_MSG);
     }
 
     private void showToast(String message) {
@@ -41,7 +40,7 @@ public class HardJobIntentService extends IntentService {
     private void updateProgress(int progress) {
         Intent broadcastIntent = new Intent(UPDATE_PROGRESS_ACTION);
         broadcastIntent.putExtra(PROGRESS_KEY, progress);
-        broadcastIntent.putExtra(SERVICE_KEY, SERVICE_VALUE);
+        broadcastIntent.putExtra(SERVICE_KEY, INTENT_SERVICE);
         sendBroadcast(broadcastIntent);
     }
 

@@ -15,12 +15,9 @@ import by.paranoidandroid.serviceexample.R;
 import by.paranoidandroid.serviceexample.services.HardJobIntentService;
 import by.paranoidandroid.serviceexample.services.HardJobService;
 
+import static by.paranoidandroid.serviceexample.utils.Constants.*;
+
 public class MainActivity extends Activity {
-    public static final String UPDATE_PROGRESS_ACTION = "by.paranoidandroid.serviceexample.action.UPDATE_PROGRESS",
-            PROGRESS_KEY = "PROGRESS_KEY", SERVICE_KEY = "SERVICE_KEY",
-            SIMPLE_SERVICE = "SIMPLE_SERVICE", INTENT_SERVICE = "INTENT_SERVICE",
-            FINISH_TEXT = "Done!";
-    private static final int MAX_VALUE = 100;
     private BroadcastReceiver progressReceiver;
     private boolean isSimpleServiceStarted;
     private boolean isIntentServiceStarted;

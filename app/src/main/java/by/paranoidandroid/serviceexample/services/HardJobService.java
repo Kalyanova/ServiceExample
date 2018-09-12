@@ -11,11 +11,9 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import static by.paranoidandroid.serviceexample.utils.Constants.*;
+
 public class HardJobService extends Service {
-    private static final String UPDATE_PROGRESS_ACTION = "by.paranoidandroid.serviceexample.action.UPDATE_PROGRESS",
-            PROGRESS_KEY = "PROGRESS_KEY", SERVICE_KEY = "SERVICE_KEY", SERVICE_VALUE = "SIMPLE_SERVICE",
-            START_SERVICE_MSG = "Starting Simple Service", FINISH_SERVICE_MSG = "Finishing Simple Service";
-    private static final int MAX_VALUE = 100, SLEEP_TIME = 100;
     private boolean isDestroyed;
     private ServiceHandler serviceHandler;
 
@@ -36,7 +34,7 @@ public class HardJobService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         isDestroyed = false;
-        Toast.makeText(this, START_SERVICE_MSG, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, START_SIMPLE_SERVICE_MSG, Toast.LENGTH_SHORT).show();
         // Call a new service handler. The service ID can be used to identify the service
         Message message = serviceHandler.obtainMessage();
         message.arg1 = startId;
@@ -74,13 +72,13 @@ public class HardJobService extends Service {
     private void updateProgress(int progress) {
         Intent broadcastIntent = new Intent(UPDATE_PROGRESS_ACTION);
         broadcastIntent.putExtra(PROGRESS_KEY, progress);
-        broadcastIntent.putExtra(SERVICE_KEY, SERVICE_VALUE);
+        broadcastIntent.putExtra(SERVICE_KEY, SIMPLE_SERVICE);
         sendBroadcast(broadcastIntent);
     }
 
     @Override public void onDestroy() {
         isDestroyed = true;
-        Toast.makeText(this, FINISH_SERVICE_MSG, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, FINISH_SIMPLE_SERVICE_MSG, Toast.LENGTH_SHORT).show();
         super.onDestroy();
     }
 }
